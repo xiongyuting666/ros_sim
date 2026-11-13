@@ -6,6 +6,7 @@ void Publisher::publish(Message msg)
 {
     RosCore*core=RosCore::getInstance();//调用单例的静态方法，拿到唯一的RosCore指针
     core->publish(topicName,msg);//把消息和当前发布者的话题交给RosCore,由它做消息分发
+    cout<<"【发布】话题："<<topicName<<"消息内容："<<msg.getData()<<endl;
 }
 void Publisher::run()
 {
