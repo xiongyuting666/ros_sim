@@ -70,7 +70,7 @@ classDiagram
     }
     class RosCore{
         - instance: RosCore*
-        - subMap: map<string,vector<Subscriber*>>
+        - subMap: map
         - RosCore()
         + getInstance():RosCore*
         + registerSub(sub:Subscriber)
