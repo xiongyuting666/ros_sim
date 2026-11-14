@@ -4,7 +4,7 @@
 using namespace std;
 void Subscriber::callback(Message msg)
 {
-    cout<<"【接收】话题："<<topicName<<"消息内容："<<msg.getData()<<endl;
+    cout<<"[Receive]topic:"<<topicName<<"content:"<<msg.getData()<<"time:"<<msg.getTimeStamp()<<endl;
 }
 void Subscriber::init()
 {
