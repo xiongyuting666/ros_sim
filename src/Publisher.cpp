@@ -2,14 +2,22 @@
 #include"RosCore.h"
 #include<iostream>
 using namespace std; 
+void Publisher::init()
+{
+    cout<<"[INFO]Publisher[]"<<getNodeName()<<"]init,topic:"<<topicName<<endl;
+    RosCore*core=RosCore::getInstance();//调用单例的静态方法，拿到唯一的RosCore指针
+    core->regPublisher(topicName,this);//把当前发布者注册到RosCore,由它做消息分发
+
+}
+void Publisher::shutdown()
+{
+    cout<<"[INFO]Publisher["<<getNodeName()<<"]shutdown,topic:"<<topicName<<endl;
+    RosCore*core=RosCore::getInstance();//调用单例的静态方法，拿到唯一的RosCore指针
+    core->unregPublisher(topicName,this);//把当前发布者从RosCore注销,由它做消息分发
+}
 void Publisher::publish(Message msg)
 {
     RosCore*core=RosCore::getInstance();//调用单例的静态方法，拿到唯一的RosCore指针
     core->publish(topicName,msg);//把消息和当前发布者的话题交给RosCore,由它做消息分发
     cout<<"【发布】话题："<<topicName<<"消息内容："<<msg.getData()<<endl;
-}
-void Publisher::run()
-{
-    cout<<"Publisher"<<nodeName<<"is running,topic:"<<topicName<<endl;
-//启动节点后打印提示，告诉我们这个发布节点已启动，对应的话题是什么
 }

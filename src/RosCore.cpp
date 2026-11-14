@@ -27,3 +27,19 @@ void RosCore::publish(std::string topic,Message msg)
     }
 }
 //RosCore的工作：订阅的时候，它负责登记好【话题-订阅者】；发布消息的时候，RosCore找到订阅该主题的每个订阅者，挨个发送消息
+void RosCore::regPublisher(std::string topic,Publisher*pub)
+{
+    std::cout<<"[INFO]RosCore:Publisher["<<pub->getNodeName()<<"]reg,topic:"<<topic<<std::endl;
+}
+void RosCore::unregPublisher(std::string topic,Publisher*pub)
+{
+    std::cout<<"[INFO]RosCore:Publisher["<<pub->getNodeName()<<"]unreg,topic:"<<topic<<std::endl;
+}
+void RosCore::regSubscriber(std::string topic,Subscriber*sub)
+{
+    std::cout<<"[INFO]RosCore:Subscriber["<<sub->getNodeName()<<"]reg,topic:"<<topic<<std::endl;
+}
+void RosCore::unregSubscriber(std::string topic,Subscriber*sub)
+{
+    std::cout<<"[INFO]RosCore:Subscriber["<<sub->getNodeName()<<"]unreg,topic:"<<topic<<std::endl;
+}

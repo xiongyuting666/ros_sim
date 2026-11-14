@@ -6,7 +6,7 @@ class Node {
         std::string nodeName; // 节点名称
     public:
         Node(std::string name) : nodeName(std::move(name)) {} // 有参构造函数，初始化节点名称
-        //只读接口，提供给子类访问节点名称的方式
+        //节点名称只读接口，提供给子类访问节点名称的方式
         std::string getNodeName() const
          {
              return nodeName; 

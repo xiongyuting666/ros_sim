@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include<map>
+#include"Publisher.h"
 #include"Subscriber.h"
 #include"Message.h"
 
@@ -15,7 +16,11 @@ class RosCore
     std::map<std::string, std::vector<Subscriber*>> topicMap; // 存储主题与订阅者的映射关系，键为主题名称，值为订阅者指针的向量
     public:
     static RosCore* getInstance(); // 获取单例实例的唯一接口
+    void regSubscriber(std::string topic, Subscriber* sub); // 注册订阅者函数，把订阅者添加到指定主题的订阅者列表中
+    void unregSubscriber(std::string topic, Subscriber* sub); // 注销订阅者
     void subscribe(std::string topic, Subscriber* sub); // 订阅函数，把订阅者添加到指定主题的订阅者列表中
+    void regPublisher(std::string topic, Publisher* pub); // 注册发布者函数，把发布者添加到指定主题的发布者列表中
+    void unregPublisher(std::string topic, Publisher* pub); // 注销发布者
     void publish(std::string topic, Message msg); // 发布函数，向指定主题的所有订阅者发送消息
 };
 

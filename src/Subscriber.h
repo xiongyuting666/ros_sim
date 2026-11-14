@@ -9,7 +9,12 @@ class Subscriber : public Node {// Subscriber类继承自Node类，表示一个�
         std::string topicName; // 订阅的主题
     public:
         Subscriber(std::string name, std::string topic) : Node(name), topicName(topic) {}// 构造函数，先调用父类构造函数，初始化节点名称和主题名称
-        void run() override;// 重写Node类的纯虚函数run()，实现订阅者的运行逻辑
+        std::string getTopicName() const
+         {
+             return topicName; 
+         }
+        void init(); // 初始化函数
+        void shutdown(); // 关闭函数 
         void callback(Message msg);// 回调函数，用于处理接收到的消息
 };
 
