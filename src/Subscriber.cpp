@@ -9,7 +9,6 @@ void Subscriber::callback(Message msg)
 void Subscriber::init()
 {
     RosCore*core=RosCore::getInstance();
-    core->subscribe(topicName,this);
     core->regSubscriber(topicName,this);
     cout<<"[INFO]Subscriber["<<getNodeName()<<"]init,topic:"<<topicName<<endl;
 }

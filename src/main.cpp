@@ -1,10 +1,13 @@
 #include"Publisher.h"
 #include"Subscriber.h"
 #include"Message.h"
+#include"RosCore.h"
 #include<iostream>
+#include<windows.h>
 using namespace std;
 int main()
 {
+    SetConsoleOutputCP(CP_UTF8);
     //创建发布者，订阅者
     Publisher pub("pub1","/chatter");
     Subscriber sub("sub1","/chatter");
