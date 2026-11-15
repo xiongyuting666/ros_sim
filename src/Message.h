@@ -20,10 +20,12 @@ class Message { // 定义一个名为 Message 的类，消息载体
                     return oss.str(); // 返回格式化后的时间字符串
                 }
             public:
-                Message(std::string d) : data(d)
+            //构造函数：只传data,时间戳内部自动生成，外部不能指定时间
+                explicit Message(std::string d) : data(d)
                 {
                     timeStamp = getCurrentTime(); // 构造函数，初始化消息数据，并获取当前时间戳
                 }
+                //只读接口，只能读取，不能修改
                 std::string getData() const
                  { 
                     return data;
