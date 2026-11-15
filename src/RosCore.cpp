@@ -16,6 +16,11 @@ RosCore*RosCore::getInstance()//呼应类里获取单例的唯一接口，从而
 //注册订阅者，带异常校验
 void RosCore::regSubscriber(std::string topic,Subscriber*sub)
 {
+    if(sub->getNodeName().empty())
+    {
+        throw std::runtime_error("ERROR:节点名称不能为空");
+    }
+
    if(topic.empty())
    {
     throw std::runtime_error("ERROR:话题名称不能为空");
@@ -53,7 +58,11 @@ void RosCore::unregSubscriber(std::string topic,Subscriber*sub)
 }
 //发布消息，带异常校验
 void RosCore::regPublisher(std::string topic,Publisher*pub)
-{                                   
+{  
+    if(pub->getNodeName().empty())
+    {
+        throw std::runtime_error("ERROR:节点名称不能为空");
+    }                                 
     if(topic.empty())
     {
         throw std::runtime_error("ERROR:话题名称不能为空");
@@ -92,6 +101,7 @@ void RosCore::unregPublisher(std::string topic,Publisher*pub)
 //发布消息，带异常校验:空消息，不存在主题，主题没有订阅者
 void RosCore::publish(std::string topic,Message msg)
 {
+
     if(msg.getData().empty())//检查消息内容是否为空
     {
         throw std::runtime_error("ERROR:消息内容不能为空");
@@ -99,7 +109,7 @@ void RosCore::publish(std::string topic,Message msg)
     auto it=subMap.find(topic);//查找指定主题的订阅者列表
     if(it==subMap.end()||it->second.empty())//如果没有找到该主题或主题没有订阅者
     {
-        throw std::runtime_error("ERROR:向不存在订阅者的话题转发消息："+topic);
+        throw std::runtime_error(std::string("ERROR:向不存在订阅者的话题转发消息：")+topic);
     }
     for(auto sub:it->second)//遍历订阅者列表，向每个订阅者发送消息
     {

@@ -8,6 +8,8 @@ using namespace std;
 int main()
 {
     SetConsoleOutputCP(CP_UTF8);
+    try
+    {
     //创建发布者，订阅者
     Publisher pub("pub1","/chatter");
     Subscriber sub("sub1","/chatter");
@@ -20,5 +22,10 @@ int main()
     //关闭节点
     pub.shutdown();
     sub.shutdown();
+    }
+    catch(const runtime_error& e)
+    {
+        cout<<e.what()<<endl;
+    }
 return 0;
 }
