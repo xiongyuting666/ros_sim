@@ -1,0 +1,19 @@
+# 编译生成的可执行文件
+*.exe
+*.out
+*.o
+
+# IDE 临时文件
+.vscode/
+.vs/
+*.swp
+*.swo
+*~
+
+# Dev-C++ 相关
+*.layout
+*.cbp
+
+# 系统垃圾
+Thumbs.db
+.DS_Store
