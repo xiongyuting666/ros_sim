@@ -168,3 +168,35 @@ void RosCore::shutdownAll()
     pubMap.clear();
     LOG_INFO("RosCore:All nodes closed successfully.");
 }
+//注册服务端：服务名不能为空，不能重复注册
+void RosCore::regService(Service* service)
+{
+    if(service->getServiceName().empty())
+    {
+        throw ServiceException("ERROR:服务名称不能为空");
+    }
+    if(serviceMap.find(service->getServiceName())!=serviceMap.end())
+    {
+        throw ServiceException("ERROR:服务已注册，重复注册:"+service->getServiceName());
+    }
+    serviceMap[service->getServiceName()]=service;
+    LOG_INFO("Service register success,name:"+service->getServiceName());
+}
+
+//客户端同步调用服务：找不到服务直接抛异常，调用成功则阻塞等待响应返回
+ServiceResponse RosCore::callService(const std::string& name, const ServiceRequest& req)
+{
+    auto it=serviceMap.find(name);
+    if(it==serviceMap.end())
+    {
+        throw ServiceException("ERROR:调用了不存在的服务:"+name);
+    }
+    LOG_INFO("Client call service:"+name);
+    return it->second->handle(req);
+}
+
+//ServiceClient 通过 RosCore 发起同步请求
+ServiceResponse ServiceClient::call(const ServiceRequest& req)
+{
+    return RosCore::getInstance()->callService(serviceName, req);
+}
