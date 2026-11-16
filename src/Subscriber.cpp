@@ -1,20 +1,21 @@
 #include"Subscriber.h"
 #include"RosCore.h"
-#include<iostream>
-using namespace std;
+#include"Log.h"
+
 void Subscriber::callback(Message msg)
 {
-    cout<<"[Receive]topic:"<<topicName<<"content:"<<msg.getData()<<"time:"<<msg.getTimeStamp()<<endl;
+    LOG_INFO("[Receive]subscriber:"+getNodeName()+" topic:"+topicName
+             +" content:"+msg.getData()+" time:"+msg.getTimeStamp());
 }
 void Subscriber::init()
 {
     RosCore*core=RosCore::getInstance();
     core->regSubscriber(topicName,this);
-    cout<<"[INFO]Subscriber["<<getNodeName()<<"]init,topic:"<<topicName<<endl;
+    LOG_INFO("Subscriber["+getNodeName()+"]init,topic:"+getTopicName());
 }
 void Subscriber::shutdown()
 {
     RosCore*core=RosCore::getInstance();
     core->unregSubscriber(topicName,this);
-    cout<<"[INFO]Subscriber["<<getNodeName()<<"]shutdown,topic:"<<topicName<<endl;
+    LOG_INFO("Subscriber["+getNodeName()+"]shutdown,topic:"+getTopicName());
 }

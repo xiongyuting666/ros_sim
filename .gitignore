@@ -3,6 +3,9 @@
 *.out
 *.o
 
+# 运行日志
+log.txt
+
 # IDE 临时文件
 .vscode/
 .vs/
